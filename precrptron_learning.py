@@ -1,18 +1,28 @@
+# Preceptron Algorithm for Caltech's Learning from Data HW1
+# Paloch Suchato
+# 21/03/2019
+
 import numpy as np
 import random
 import matplotlib.pyplot as plt
 # set seed for testing consistency
 def data_gen(N):
 	"""The fuction takes an input N and retrun 
-	a generated numpy array fill with data sample 
-	from unif[-1,1] of size N-by-2 then add N-by-1
-	bias term to result in N-by-3 matrix"""
+		a generated numpy array fill with data sample 
+		from unif[-1,1] of size N-by-2 then add N-by-1
+		bias term to result in N-by-3 matrix"""
 	X_no_bias = np.random.uniform(-1,1,(N,2))
 	X = np.hstack((np.ones((N,1)),X_no_bias))
 	return X
 
 
 def random_line():
+	"""This function generate a line from two points 
+		drawn from unif[-1,1] by using normal equation
+		(y - y1) = m(x - x1). This function return a numpy
+		array of [b, m, -1] where b is the intercept, 
+		m is a slope and -1 is a slope of y when reaarage
+		y = mx + b to cartesian plane form of b + mx - y = 0"""
 	p0 = np.random.uniform(-1,1,2)
 	p1 = np.random.uniform(-1,1,2)
 	m = (p1[1]-p0[1])/(p1[0]-p0[0])
@@ -21,6 +31,9 @@ def random_line():
 	return f
 
 def visualize_s(X,Y,f):
+	"""This function take in input X, output Y and Target function f
+		the plot the figure. This function can be used to check wheter or
+		not output generation is correct"""
 	x1 = np.linspace(-1,1, num=1000)
 	x2 = f[1]*x1 + f[0]
 	plt.plot(x1,x2)
@@ -31,10 +44,18 @@ def visualize_s(X,Y,f):
 
 
 def train_set_gen(X,f):
+	"""This function takes in inout X and target function f.
+	This function generate output Y"""
 	Y = X.dot(f)
 	return np.sign(Y)
 
 def preceptron(X,Y,epochs=1000):
+	"""This fuction takes in input X, output Y and number of epoch
+		This function train preceptron algorithm to fit the data
+		and return the weight matrix for final hypothsis and number
+		of iteration (epoch) that preceptron used in order to classified
+		all points correctly   
+	"""
 	w = np.array([0,0,0])
 	for epoch in range(epochs):
 		H = np.sign(X.dot(w))
@@ -88,10 +109,6 @@ print("(For N = 10) Iterations to converge: {}, P[f(x) != g(x)]: {}".format(ter_
 
 ter_epoch, p_wrong = simulate_preceptron(100)
 print("(For N = 100) Iterations to converge: {}, P[f(x) != g(x)]: {}".format(ter_epoch,p_wrong))
-
-
-
-
 
 
 
