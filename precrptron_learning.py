@@ -7,8 +7,8 @@ import random
 import matplotlib.pyplot as plt
 # set seed for testing consistency
 def data_gen(N):
-	"""The fuction takes an input N and retrun 
-		a generated numpy array fill with data sample 
+	"""The fuction takes an input N and retrun
+		a generated numpy array fill with data sample
 		from unif[-1,1] of size N-by-2 then add N-by-1
 		bias term to result in N-by-3 matrix"""
 	X_no_bias = np.random.uniform(-1,1,(N,2))
@@ -17,10 +17,10 @@ def data_gen(N):
 
 
 def random_line():
-	"""This function generate a line from two points 
+	"""This function generate a line from two points
 		drawn from unif[-1,1] by using normal equation
 		(y - y1) = m(x - x1). This function return a numpy
-		array of [b, m, -1] where b is the intercept, 
+		array of [b, m, -1] where b is the intercept,
 		m is a slope and -1 is a slope of y when reaarage
 		y = mx + b to cartesian plane form of b + mx - y = 0"""
 	p0 = np.random.uniform(-1,1,2)
@@ -54,7 +54,7 @@ def preceptron(X,Y,epochs=1000):
 		This function train preceptron algorithm to fit the data
 		and return the weight matrix for final hypothsis and number
 		of iteration (epoch) that preceptron used in order to classified
-		all points correctly   
+		all points correctly
 	"""
 	w = np.array([0,0,0])
 	for epoch in range(epochs):
@@ -79,7 +79,7 @@ def visualize_g(X,Y,f,g):
 	plt.ylim([-1,1])
 	plt.show()
 
-	
+
 def p_error(f,g, N=10):
 	test = data_gen(N)
 	Y_target = np.sign(test.dot(f))
@@ -103,12 +103,11 @@ def simulate_preceptron(N,runs=1000):
 	mean_p_wrong = np.mean((p_wrong))
 	return mean_terminate_epoch, mean_p_wrong
 
+	
+
 
 ter_epoch, p_wrong = simulate_preceptron(10)
 print("(For N = 10) Iterations to converge: {}, P[f(x) != g(x)]: {}".format(ter_epoch,p_wrong))
 
 ter_epoch, p_wrong = simulate_preceptron(100)
 print("(For N = 100) Iterations to converge: {}, P[f(x) != g(x)]: {}".format(ter_epoch,p_wrong))
-
-
-
